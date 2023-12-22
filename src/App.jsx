@@ -6,6 +6,7 @@ import { getProducts } from "./services";
 
 const App = () => {
   const [productsData, setProductsData] = useState([]);
+  
   useEffect(() => {
     getProducts()
       .then((response) => {
