@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getProductById, getProducts, getCategories } from "../services";
+import { getCategories, getProductById, getProducts, getProductsByCategory } from "../services";
 
 export const useGetProducts = (limit /*= 8*/) => {
     const [productsData, setProductsData] = useState([]);
@@ -48,4 +48,20 @@ export const useGetCategories = () => {  ///GET CAT ISNT DEFINED
     }, []);
 
     return{categories}
+}
+
+export const useGetProductsByCategory = (id) => {
+    const [productsData, setProductsData] = useState([]);
+    
+    useEffect(() => {
+        getProductsByCategory(id)
+        .then((response) => {
+            setProductsData(response.data.products)
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }, [id]);
+
+    return{productsData}
 }

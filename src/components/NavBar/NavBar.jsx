@@ -22,9 +22,13 @@ const NavBar = () => {
               {
                 categories.map((category, index) => {
                   return(
-                    <Link key={index} to={`/category/${category}`}>{category}</Link>)
-                })
-              }
+                    <NavDropdown.Item key={index}>
+                      <Link key={index} to={`/category/${category}`}>
+                        {category}
+                      </Link>
+                    </NavDropdown.Item>
+                    )
+                })}
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
