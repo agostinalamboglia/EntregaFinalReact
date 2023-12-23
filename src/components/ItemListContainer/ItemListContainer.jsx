@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 const ItemListContainer = ({productsData}) => {
     
     return(
-            <div>
+            <div style={{display: 'flex', justifyContent: 'space-around', width: '100vw', flexWrap: 'wrap'}}>
                 {productsData.map((products) => {
                         return(
                             <Card key={products.id} style={{ width: '18rem' }}>

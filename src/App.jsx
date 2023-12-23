@@ -1,21 +1,11 @@
-import { useEffect, useState } from "react";
 import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
 import NavBar from "./components/NavBar/NavBar";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { getProducts } from "./services";
+import { useGetProducts } from "./hooks/useProducts";
+
 
 const App = () => {
-  const [productsData, setProductsData] = useState([]);
-  
-  useEffect(() => {
-    getProducts()
-      .then((response) => {
-        setProductsData(response.data.products)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [])
+  const {productsData} = useGetProducts(10);
 
   return(
     <div style={{width:'100vw', height: '100vh'}}>
