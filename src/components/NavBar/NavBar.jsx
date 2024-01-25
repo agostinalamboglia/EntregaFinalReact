@@ -6,6 +6,7 @@ import CartWidget from "../CartWidget/CartWidget";
 import {Link} from "react-router-dom";
 import { useGetCategories } from "../../hooks/useProducts";
 
+
 const NavBar = () => {
   const{categories} = useGetCategories();
 

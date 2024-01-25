@@ -23,7 +23,6 @@ export const useGetProductById = (id) => {
     useEffect(() => {
         getProductById(id)
         .then((response) => {
-            console.log(response.data)
             setProductData(response.data)
         })
         .catch((error) => {
