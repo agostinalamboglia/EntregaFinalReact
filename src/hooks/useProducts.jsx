@@ -1,10 +1,24 @@
 import { useState, useEffect } from "react";
-import { getCategories, getProductById, getProducts, getProductsByCategory } from "../services";
+import { getCategories, getProductsByCategory } from "../services";
+import {collection, getDocs, doc, getDoc, getFirestore} from "firebase/firestore";
 
-export const useGetProducts = (limit /*= 8*/) => {
+
+
+export const useGetProducts = (collectionName = "products") => {
     const [productsData, setProductsData] = useState([]);
     
     useEffect(() => {
+        const db = getFirestore();
+
+        const productsCollection = collection(db, collectionName);
+
+        getDocs(productsCollection).then((snapshot) => {
+            setProductsData(snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})));
+        });
+
+    }, []);
+
+/*     useEffect(() => {
         getProducts(limit)
         .then((response) => {
             setProductsData(response.data.products)
@@ -12,25 +26,32 @@ export const useGetProducts = (limit /*= 8*/) => {
         .catch((error) => {
             console.log(error);
         });
-    }, []);
+    }, []); */
 
     return{productsData}
 }
 
-export const useGetProductById = (id) => {
+export const useGetProductById = (collectionName = "products", id) => {
     const [productData, setProductData] = useState([]);
     
     useEffect(() => {
-        getProductById(id)
+        const db = getFirestore();
+        
+        const docRef = doc(db, collectionName, id)
+
+        getDoc(docRef).then((doc) => {
+            setProductData({id: doc.id, ...doc.data()})
+        })
+/*         getProductById(id)
         .then((response) => {
             setProductData(response.data)
         })
         .catch((error) => {
             console.log(error);
-        });
+        }); */
     }, [id]);
 
-    return{productData}
+    return{productData};
 }
 
 export const useGetCategories = () => {  ///GET CAT ISNT DEFINED
