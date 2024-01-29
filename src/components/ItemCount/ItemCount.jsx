@@ -17,7 +17,7 @@ const ItemCount = ({productId}) => {
     };
 
     const handleAddProductToCart = () => {
-        const newProduct = {
+   /*      const newProduct = {
             id: productId,
             quantity: countItem
         };
@@ -35,8 +35,20 @@ const ItemCount = ({productId}) => {
                     setCount([...count, newProduct]);
                 }
             });
+        } */
+        const productExists = count.find(item => item.id === productId);
+
+        if (productExists) {
+            setCount(count.map(item =>
+                item.id === productId
+                ? {...item, quantity: item.quantity + countItem}
+                : item
+                ));
+        } else {
+            setCount([...count, {id: productId, quantity: countItem}]);
         }
-            setCountItem(1);
+        
+        setCountItem(1);
         };
     
 
